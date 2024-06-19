@@ -19,23 +19,23 @@ const config: Config = {
     },
     extend: {
       colors: {
-        primary: "#B88E2F",
-        "primary-light": "#F9F1E7",
-        customBlack: "#333333",
-        customGray: "#666666",
-        error: "#E97171",
-        success:"#2EC1AC",
-        customGray2: "#9F9F9F"
+        primary: '#B88E2F',
+        'primary-light': '#F9F1E7',
+        customBlack: '#333333',
+        customGray: '#666666',
+        error: '#E97171',
+        success: '#2EC1AC',
+        customGray2: '#9F9F9F',
       },
       backgroundImage: {
-
+        hero: 'url(/images/hero.jpg)',
       },
       fontSize: {
-        "normal": "16px",
-        "header": "40px",
-        "large": "52px",
-        "20": "20px",
-        "24": "24px",
+        normal: '16px',
+        header: '40px',
+        large: '52px',
+        '20': '20px',
+        '24': '24px',
       },
       keyframes: {
         'accordion-down': {
