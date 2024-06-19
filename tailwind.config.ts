@@ -36,6 +36,7 @@ const config: Config = {
         large: '52px',
         '20': '20px',
         '24': '24px',
+        '32': '32px'
       },
       keyframes: {
         'accordion-down': {
