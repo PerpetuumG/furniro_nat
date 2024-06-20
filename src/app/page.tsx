@@ -1,7 +1,6 @@
 import HeroSection from '@/components/sections/HeroSection';
 import BrowseTheRangeSection from '@/components/sections/BrowseTheRangeSection';
 import OurProductSection from '@/components/sections/OurProductSection';
-import RoomSection from '@/components/sections/RoomSection';
 import ShareSetupSection from '@/components/sections/ShareSetupSection';
 
 export default function HomePage() {
@@ -15,7 +14,6 @@ export default function HomePage() {
       </div>
 
       <div className={'mt-[56px]'}>
-        <RoomSection />
         <ShareSetupSection />
       </div>
     </main>
