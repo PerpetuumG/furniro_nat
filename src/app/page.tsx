@@ -14,7 +14,7 @@ export default function HomePage() {
         <OurProductSection />
       </div>
 
-      <div className={'mt-14'}>
+      <div className={'mt-[56px]'}>
         <RoomSection />
         <ShareSetupSection />
       </div>
