@@ -28,7 +28,8 @@ const config: Config = {
         customGray2: '#9F9F9F',
       },
       backgroundImage: {
-        hero: 'url(/images/hero.jpg)',
+        hero: 'url(/images/shop.jpg)',
+        'shop-hero': 'url(/images/shop_hero.png)',
       },
       fontSize: {
         normal: '16px',
@@ -36,7 +37,7 @@ const config: Config = {
         large: '52px',
         '20': '20px',
         '24': '24px',
-        '32': '32px'
+        '32': '32px',
       },
       keyframes: {
         'accordion-down': {

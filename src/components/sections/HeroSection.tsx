@@ -4,7 +4,7 @@ const HeroSection = () => {
   return (
     <section
       className={
-        'bg-hero flex flex-col justify-center items-end w-full h-[calc(100vh-73px)] bg-no-repeat bg-cover bg-bottom'
+        'bg-shop flex flex-col justify-center items-end w-full h-[calc(100vh-73px)] bg-no-repeat bg-cover bg-bottom'
       }
     >
       <div
