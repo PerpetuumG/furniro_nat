@@ -9,12 +9,11 @@ import {
   PaginationLink,
 } from '@/components/ui/pagination';
 import MainButton from '@/components/common/MainButton';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { MinusIcon, PlusIcon } from 'lucide-react';
 
 const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
   const MAX_QUANTITY = 5;
-  const [quantity, setQuantity] = useState<number>(1);
 
   const mini = [
     '/images/sofa_mini.png',
@@ -54,6 +53,9 @@ const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
     },
   ];
 
+  const [quantity, setQuantity] = useState<number>(1);
+  const [isMounted, setIsMounted] = useState(false);
+
   const handleQuantityIncrement = () => {
     if (quantity === MAX_QUANTITY) return;
     setQuantity(quantity + 1);
@@ -63,6 +65,14 @@ const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
     if (quantity === 1) return;
     setQuantity(quantity - 1);
   };
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <section className={'grid grid-cols-1 md:grid-cols-2 gap-8'}>
