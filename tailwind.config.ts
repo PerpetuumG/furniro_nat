@@ -28,7 +28,7 @@ const config: Config = {
         customGray2: '#9F9F9F',
       },
       backgroundImage: {
-        hero: 'url(/images/shop.jpg)',
+        hero: 'url(/images/hero.jpg)',
         'shop-hero': 'url(/images/shop_hero.png)',
       },
       fontSize: {

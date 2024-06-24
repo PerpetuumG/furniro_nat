@@ -9,7 +9,9 @@ const ShopPage = () => {
     <div>
       <ShopHeroSection />
       <ShopFilterSection />
-      <ShopProductSection />
+      <div className={'mx-4 md:mx-[130px]'}>
+        <ShopProductSection />
+      </div>
       <div className={'my-[70px]'}>
         <ShopPaginationSection />
       </div>

@@ -102,7 +102,11 @@ const ProductCard = ({
 
           <div className={'flex justify-between mt-6'}>
             {icons.map((icon, index) => (
-              <div key={index} className={'flex gap-1 items-center hover:cursor-pointer'}>
+              <div
+                key={index}
+                className={'flex gap-1 items-center hover:cursor-pointer'}
+                onClick={icon.action}
+              >
                 <div>
                   <img src={icon.iconUrl} alt={icon.title} />
                 </div>
