@@ -5,8 +5,11 @@ import { MenuIcon, X } from 'lucide-react';
 import Link from 'next/link';
 import Logo from '../../../public/images/logo.png';
 import Image from 'next/image';
+import CartSection from '@/components/sections/shop/CartSection';
+import { RemoveScroll } from 'react-remove-scroll';
 
 function NavBar() {
+  const [showCart, setShowCart] = useState(false);
   const [menu, setMenu] = useState(false);
   const links = [
     { title: 'Home', link: '/' },
@@ -34,7 +37,7 @@ function NavBar() {
     {
       iconUrl: '/images/cart_icon.png',
       alt: 'cart icon',
-      action: () => console.log('You just clicked on the cart icon'),
+      action: () => setShowCart(prevState => !prevState),
     },
   ];
 
@@ -43,72 +46,73 @@ function NavBar() {
   };
 
   return (
-    <div className='md:sticky md:top-0   md:shadow-none z-20 '>
-      {/* DESKTOP */}
-      <div className=' hidden lg:block animate-in fade-in zoom-in bg-white p-4'>
-        <div className='flex justify-between mx-[41px] items-center'>
-          <div>
-            <Image src={Logo} alt='logo' />
-          </div>
-          <div className='flex gap-[20px] xl:gap-[50px] text-[16px] items-center select-none'>
-            {links.map((link, index) => (
-              <Link
-                key={index}
-                href={link.link}
-                className={`hover:text-primary cursor-pointer flex items-center gap-2  font-[500] text-gray`}
-              >
-                <p>{link.title}</p>
-              </Link>
-            ))}
-          </div>
-          <div className='flex items-center gap-[40px] select-none'>
-            {icons.map((icon, index) => (
-              <img
-                src={icon.iconUrl}
-                alt={icon.alt}
-                onClick={icon.action}
-                key={index}
-                className={'cursor-pointer'}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* MOBILE */}
-      <div
-        className={` block lg:hidden shadow-sm  fixed top-0 w-full z-[999] bg-white py-4 animate-in fade-in zoom-in  ${
-          menu ? ' !bg-primary-light py-2' : ''
-        } `}
-      >
-        <div className='flex justify-between mx-[10px]'>
-          <div className='flex gap-[50px] text-[16px] items-center select-none'>
-            <Image src={Logo} alt='logo' className='w-[7rem]' />
-          </div>
-          <div className='flex items-center gap-[40px]'>
-            {menu ? (
-              <X
-                className='cursor-pointer animate-in fade-in zoom-in text-black'
-                onClick={toggleMenu}
-              />
-            ) : (
-              <MenuIcon
-                className='cursor-pointer animate-in fade-in zoom-in'
-                onClick={toggleMenu}
-              />
-            )}
-          </div>
-        </div>
-        {menu ? (
-          <div className='my-8 select-none animate-in slide-in-from-right'>
-            <div className='flex flex-col gap-8 mt-8 mx-4'>
+    <div className={'relative'}>
+      <div className='md:sticky md:top-0 md:shadow-none z-20 relative'>
+        {/* DESKTOP */}
+        <div className=' hidden lg:block animate-in fade-in zoom-in bg-white p-4'>
+          <div className='flex justify-between mx-[41px] items-center'>
+            <div>
+              <Image src={Logo} alt='logo' />
+            </div>
+            <div className='flex gap-[20px] xl:gap-[50px] text-[16px] items-center select-none'>
               {links.map((link, index) => (
-                <Link key={index} href={link.link} className={`text-black cursor-pointer`}>
+                <Link
+                  key={index}
+                  href={link.link}
+                  className={`hover:text-primary cursor-pointer flex items-center gap-2  font-[500] text-gray`}
+                >
                   <p>{link.title}</p>
                 </Link>
               ))}
+            </div>
+            <div className='flex items-center gap-[40px] select-none'>
+              {icons.map((icon, index) => (
+                <img
+                  src={icon.iconUrl}
+                  alt={icon.alt}
+                  onClick={icon.action}
+                  key={index}
+                  className={'cursor-pointer'}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
 
-              <div className='flex flex-col gap-[40px] select-none'>
+        {/* MOBILE */}
+        <div
+          className={` block lg:hidden shadow-sm  fixed top-0 w-full z-[999] bg-white py-4 animate-in fade-in zoom-in  ${
+            menu ? ' !bg-primary-light py-2' : ''
+          } `}
+        >
+          <div className='flex justify-between mx-[10px]'>
+            <div className='flex gap-[50px] text-[16px] items-center select-none'>
+              <Image src={Logo} alt='logo' className='w-[7rem]' />
+            </div>
+            <div className='flex items-center gap-[40px]'>
+              {menu ? (
+                <X
+                  className='cursor-pointer animate-in fade-in zoom-in text-black'
+                  onClick={toggleMenu}
+                />
+              ) : (
+                <MenuIcon
+                  className='cursor-pointer animate-in fade-in zoom-in'
+                  onClick={toggleMenu}
+                />
+              )}
+            </div>
+          </div>
+          {menu ? (
+            <div className='my-8 select-none animate-in slide-in-from-right'>
+              <div className='flex flex-col gap-8 mt-8 mx-4'>
+                {links.map((link, index) => (
+                  <Link key={index} href={link.link} className={`text-black cursor-pointer`}>
+                    <p>{link.title}</p>
+                  </Link>
+                ))}
+
+                <div className='flex flex-col gap-[40px] select-none'>
                   {icons.map((icon, index) => (
                     <img
                       src={icon.iconUrl}
@@ -118,11 +122,30 @@ function NavBar() {
                       className={'cursor-pointer w-[28px] h-[28px] object-contain'}
                     />
                   ))}
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div></div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      </div>
+
+      {/*  */}
+      {showCart && (
+        <div
+          className={
+            'hidden md:block absolute animate-out left-0 right-0 top-0 h-screen bg-black/20 z-[99]'
+          }
+          onClick={() => setShowCart(prevState => !prevState)}
+        ></div>
+      )}
+
+      <div className={'hidden md:block md:absolute top-0 right-0 z-[100]'}>
+        {showCart && (
+          <RemoveScroll>
+            <CartSection toggleShowCart={() => setShowCart(prevState => !prevState)} />
+          </RemoveScroll>
         )}
       </div>
     </div>
