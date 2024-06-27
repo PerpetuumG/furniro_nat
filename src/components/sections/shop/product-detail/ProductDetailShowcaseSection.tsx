@@ -9,8 +9,11 @@ import {
   PaginationLink,
 } from '@/components/ui/pagination';
 import MainButton from '@/components/common/MainButton';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { MinusIcon, PlusIcon } from 'lucide-react';
+import { PRODUCTS } from '@/lib/constants';
+import { useAtom } from 'jotai';
+import { cartAtom } from '@/storage/jotai';
 
 const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
   const MAX_QUANTITY = 5;
@@ -56,6 +59,8 @@ const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
   const [quantity, setQuantity] = useState<number>(1);
   const [isMounted, setIsMounted] = useState(false);
 
+  const [cart, setCart] = useAtom(cartAtom);
+
   const handleQuantityIncrement = () => {
     if (quantity === MAX_QUANTITY) return;
     setQuantity(quantity + 1);
@@ -64,6 +69,48 @@ const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
   const handleQuantityDecrement = () => {
     if (quantity === 1) return;
     setQuantity(quantity - 1);
+  };
+
+  const handleAddToCart = () => {
+    const productInCart = cart.find(product => product.id === productId);
+
+    // NOTE: When we already have the product in the cart [EXISTING PRODUCT]
+    if (productInCart) {
+      let updatedProducts = [];
+
+      const productObject: IProduct = {
+        id: productId,
+        productImageUrl: productInCart?.productImageUrl,
+        productName: productInCart?.productName,
+        quantity,
+        unitPrice: Number(productInCart?.unitPrice),
+      };
+
+      // NOTE: Remove it from cart & set afresh
+      const filteredProducts = cart.filter(product => product.id !== productId);
+
+      updatedProducts = filteredProducts;
+      updatedProducts.push(productObject);
+
+      setCart(updatedProducts);
+    }
+
+    // NOTE: When we don't have the product already in the cart [FRESH PRODUCT]
+    if (!productInCart) {
+      const product = PRODUCTS.find(product => {
+        return product.id === productId;
+      });
+
+      const productObject: IProduct = {
+        id: productId,
+        productImageUrl: product?.imageUrl,
+        productName: product?.title,
+        quantity: quantity,
+        unitPrice: Number(product?.price),
+      };
+
+      setCart(prevProducts => [...prevProducts, productObject]);
+    }
   };
 
   useEffect(() => {
@@ -156,6 +203,7 @@ const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
               classes={
                 'h-16 bg-white text-black border border-black rounded-[15px] hover:cursor-pointer hover:bg-white'
               }
+              action={handleAddToCart}
             />
           </div>
         </div>

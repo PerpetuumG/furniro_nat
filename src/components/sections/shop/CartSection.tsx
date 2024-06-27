@@ -2,26 +2,11 @@ import { Separator } from '@/components/ui/separator';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import MainButton from '@/components/common/MainButton';
+import { useAtom } from 'jotai';
+import { cartAtom } from '@/storage/jotai';
 
 const CartSection = ({ toggleShowCart }: { toggleShowCart: () => void }) => {
-  const data = [
-    {
-      id: 1,
-      productImageUrl: '/images/sofa.png',
-      productName: 'Asgaard sofa',
-      quantity: 1,
-      unitPrice: 25000000,
-    },
-    {
-      id: 2,
-      productImageUrl: '/images/sofa.png',
-      productName: 'Casaiving Wood',
-      quantity: 1,
-      unitPrice: 27000000,
-    },
-  ];
-
-  const [products, setProducts] = useState(data);
+  const [products, setProducts] = useAtom(cartAtom);
   const [subTotal, setSubTotal] = useState(0);
   const router = useRouter();
 
@@ -108,7 +93,7 @@ const CartSection = ({ toggleShowCart }: { toggleShowCart: () => void }) => {
             </div>
           </div>
         ) : (
-            <div></div>
+          <div></div>
         )}
       </div>
     </div>
