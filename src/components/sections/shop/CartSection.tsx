@@ -1,3 +1,5 @@
+'use client';
+
 import { Separator } from '@/components/ui/separator';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -89,6 +91,7 @@ const CartSection = ({ toggleShowCart }: { toggleShowCart: () => void }) => {
                 classes={
                   'bg-white hover:bg-white text-black  border border-black rounded-[50px] h-[40px] w-[150px]'
                 }
+                action={() => router.push('/checkout')}
               />
             </div>
           </div>

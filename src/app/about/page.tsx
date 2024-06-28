@@ -1,9 +1,11 @@
+import Hero from '@/components/common/Hero';
+
 const AboutPage = () => {
-    return (
-        <div>
-About
-        </div>
-    );
+  return (
+    <div>
+      <Hero title={'About'} />
+    </div>
+  );
 };
 
 export default AboutPage;
