@@ -7,10 +7,16 @@ import Logo from '../../../public/images/logo.png';
 import Image from 'next/image';
 import CartSection from '@/components/sections/shop/CartSection';
 import { RemoveScroll } from 'react-remove-scroll';
+import { useAtomValue } from 'jotai';
+import { cartAtom } from '@/storage/jotai';
+import { Badge } from '@/components/ui/badge';
 
 function NavBar() {
   const [showCart, setShowCart] = useState(false);
   const [menu, setMenu] = useState(false);
+
+  const cartValue = useAtomValue(cartAtom);
+
   const links = [
     { title: 'Home', link: '/' },
     { title: 'Shop', link: '/shop' },
@@ -38,6 +44,7 @@ function NavBar() {
       iconUrl: '/images/cart_icon.png',
       alt: 'cart icon',
       action: () => setShowCart(prevState => !prevState),
+      badgeValue: cartValue?.length,
     },
   ];
 
@@ -67,13 +74,21 @@ function NavBar() {
             </div>
             <div className='flex items-center gap-[40px] select-none'>
               {icons.map((icon, index) => (
-                <img
-                  src={icon.iconUrl}
-                  alt={icon.alt}
-                  onClick={icon.action}
-                  key={index}
-                  className={'cursor-pointer'}
-                />
+                <div className={'relative'} key={index}>
+                  <img
+                    src={icon.iconUrl}
+                    alt={icon.alt}
+                    onClick={icon.action}
+                    className={'cursor-pointer'}
+                  />
+                  {icon?.badgeValue ? (
+                    <Badge variant={'destructive'} className={'absolute -top-3 -right-5'}>
+                      {icon?.badgeValue}
+                    </Badge>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
               ))}
             </div>
           </div>

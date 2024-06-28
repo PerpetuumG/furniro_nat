@@ -113,6 +113,10 @@ const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
     }
   };
 
+  const specificProduct = PRODUCTS.find(product => {
+    return product.id === productId;
+  });
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -142,7 +146,7 @@ const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
           }
         >
           <img
-            src={'/images/sofa.png'}
+            src={specificProduct?.imageUrl}
             alt='product'
             className={'w-[425px] h-[500px] object-contain rounded-[10px]'}
           />
@@ -151,8 +155,8 @@ const ProductDetailShowcaseSection = ({ productId }: { productId: string }) => {
 
       {/* Right */}
       <div>
-        <p className={'text-[42px]'}>Asgaard sofa</p>
-        <p className={'text-customGray text-24 font-medium'}>Rs. 250.000.000</p>
+        <p className={'text-[42px]'}>{specificProduct?.title}</p>
+        <p className={'text-customGray text-24 font-medium'}>Rs. {specificProduct?.price}</p>
 
         <div className={'flex items-center gap-[22px]'}>
           {/* don't work stars */}
